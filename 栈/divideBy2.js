@@ -1,4 +1,4 @@
-import Stack from './stack-class.js';
+ 
 function divideBy2(decNumber) {
     let remStack = new Stack(),
         binaryString = '';
