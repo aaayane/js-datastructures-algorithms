@@ -5,7 +5,5 @@ coverage
 .nyc_output
 coverage.lcov
 mochawesome-report/*
-dist/js/*
-dist-/*
-dist/ts/*
+dist/*
 snippet.js
