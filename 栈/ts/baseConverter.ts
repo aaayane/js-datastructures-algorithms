@@ -1,4 +1,4 @@
-import Stack from './stack-class';
+import Stack from './stack';
 export default function baseConverter(decNumber: number, base: number) {
     const remStack = new Stack();
     const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'

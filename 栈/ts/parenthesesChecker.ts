@@ -1,4 +1,4 @@
-import Stack from './stack-class.js';
+import Stack from './stack';
 export function parenthesesChecker(symbols: string) {
     const stack = new Stack<string>();
     const opens = '([{';
@@ -9,7 +9,7 @@ export function parenthesesChecker(symbols: string) {
     let top: string;
     while (index < symbols.length && balanced) {
         symbol = symbols[index];
-        if (opens.indexOf(symbol) > 0) {
+        if (opens.indexOf(symbol) >= 0) {
             stack.push(symbol)
         } else {
             if (stack.isEmpty()) {
