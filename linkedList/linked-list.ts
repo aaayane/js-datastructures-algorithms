@@ -24,3 +24,11 @@ type IEqualsFunction<T> = (a: T, b: T) => boolean;
 function defaultEquals<T>(a: T, b: T): boolean {
     return a === b;
 }
+
+let list = new LinkedList();
+console.log('new list');
+
+list.append(15);
+console.log('15append');
+
+list.append(10)
