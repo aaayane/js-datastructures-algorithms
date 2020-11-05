@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "sourceMap": false,
-    "outDir": "./dist",
+    "outDir": "./js",
     "target": "es6"
   },
-  "include": ["./**/ts/*.ts"]
+  "include": ["./ts/**/*.ts"]
 }

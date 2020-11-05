@@ -1,4 +1,4 @@
-class HashTable {
+export default class HashTable {
     constructor() {
         this.table = []
     }
@@ -12,7 +12,7 @@ class HashTable {
     put(key, value) {
         let position = this.loseloseHashCode(key)
         console.log(position + '-' + key);
-        this.table[key] = value
+        this.table[position] = value
 
     }
     remove(key) {
@@ -22,12 +22,12 @@ class HashTable {
         return this.table[this.loseloseHashCode(key)]
     }
 }
-let hash = new HashTable();
-hash.put('aaaya', '111111')
-hash.put('xiaoming', '22222')
-hash.put('xiaohong', '3333')
-
-console.log(hash.get('aaaya'));
-console.log(hash.get('xiaohong'));
+// let hash = new HashTable();
+// hash.put('aaaya', '111111')
+// hash.put('xiaoming', '22222')
+// hash.put('xiaohong', '3333')
+// window.hash = hash
+// console.log(hash.get('aaaya'));
+// console.log(hash.get('xiaohong'));
 
 
