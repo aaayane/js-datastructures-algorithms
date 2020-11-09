@@ -1,4 +1,4 @@
-import LinkedList from '../../linkedList/linked-list';
+import LinkedList from '../linkedList/linked-list';
 export default class HashTable {
     constructor() {
         this.table = []
