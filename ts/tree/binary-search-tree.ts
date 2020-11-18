@@ -1,10 +1,22 @@
 import { Node } from './../models/node';
 import { Compare, defaultCompare, ICompareFunction } from '../util';
 
+// 搜索二叉树
 export default class BinarySearchTree<T> {
     protected root: Node<T>
     constructor(protected compareFn: ICompareFunction<T> = defaultCompare) { }
 
+
+
+    insert(key: T) {
+        // 向树中插入一个新的键
+        if (this.root === null) {
+            this.root = new Node(key)
+
+        } else {
+            this.insertNode(this.root, key)
+        }
+    }
     protected insertNode(node: Node<T>, key: T) {
         if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
             if (node.left == null) {
@@ -18,17 +30,6 @@ export default class BinarySearchTree<T> {
             this.insertNode(node.right, key);
         }
     }
-
-    insert(key: T) {
-        // 向树中插入一个新的键
-        if (this.root === null) {
-            this.root = new Node(key)
-
-        } else {
-            this.insertNode(this.root, key)
-        }
-    }
-
     getRoot() {
         return this.root;
     }
