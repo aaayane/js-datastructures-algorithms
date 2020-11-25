@@ -1,22 +1,23 @@
 import { Node } from './../models/node';
-import { Compare, defaultCompare, ICompareFunction } from '../util';
+import { Compare, defaultCompare } from '../util';
 import BinarySearchTree from './binary-search-tree';
-
-enum BalanceFactor {
-    UNBALANCED_RIGHT = 1,
-    SLIGHTLY_UNBALANCED_RIGHT = 2,
-    BALANCED = 3,
-    SLIGHTLY_UNBALANCED_LEFT = 4,
-    UNBALANCED_LEFT = 5
-}
+var BalanceFactor;
+(function (BalanceFactor) {
+    BalanceFactor[BalanceFactor["UNBALANCED_RIGHT"] = 1] = "UNBALANCED_RIGHT";
+    BalanceFactor[BalanceFactor["SLIGHTLY_UNBALANCED_RIGHT"] = 2] = "SLIGHTLY_UNBALANCED_RIGHT";
+    BalanceFactor[BalanceFactor["BALANCED"] = 3] = "BALANCED";
+    BalanceFactor[BalanceFactor["SLIGHTLY_UNBALANCED_LEFT"] = 4] = "SLIGHTLY_UNBALANCED_LEFT";
+    BalanceFactor[BalanceFactor["UNBALANCED_LEFT"] = 5] = "UNBALANCED_LEFT";
+})(BalanceFactor || (BalanceFactor = {}));
 // 自平衡二叉树
-export default class AVLTree<T> extends BinarySearchTree<T>  {
-    constructor(protected compareFn: ICompareFunction<T> = defaultCompare) {
+export default class AVLTree extends BinarySearchTree {
+    constructor(compareFn = defaultCompare) {
         super(compareFn);
+        this.compareFn = compareFn;
     }
-    private getNodeHeight(node: Node<T>): number {
+    getNodeHeight(node) {
         if (node === undefined) {
-            return -1
+            return -1;
         }
         return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) + 1;
     }
@@ -31,7 +32,7 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
       *
       * @param node Node<T>
       */
-    private rotationRR(node: Node<T>) {
+    rotationRR(node) {
         let tmp = node.right;
         node.right = tmp.left;
         tmp.left = node;
@@ -48,47 +49,46 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
  *
  * @param node Node<T>
  */
-    private rotationLL(node: Node<T>) {
+    rotationLL(node) {
         let tmp = node.left;
         node.left = tmp.right;
         tmp.right = node;
         return tmp;
     }
-
     /**
      * 左-右 LR 向右的双旋转
      * 先对左子数左旋 在对自己右旋
      * @param node Node<T>
      */
-    private rotationLR(node: Node<T>) {
+    rotationLR(node) {
         node.left = this.rotationRR(node.left);
         return this.rotationLL(node);
     }
-
     /**
      * 右-左 向左的双旋转
      * 先对右子数右旋 在对自己左旋
      * @param node Node<T>
      */
-    private rotationRL(node: Node<T>) {
+    rotationRL(node) {
         node.right = this.rotationLL(node.right);
         return this.rotationRR(node);
     }
-
-    insert(key: T) {
-        this.root = this.insertNode(this.root, key)
+    insert(key) {
+        this.root = this.insertNode(this.root, key);
     }
-    protected insertNode(node: Node<T>, key: T) {
-
+    insertNode(node, key) {
         if (node === undefined) {
-            return new Node(key)
-        } else if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
-            node.left = this.insertNode(node.left, key)
-        } else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
-            node.right = this.insertNode(node.right, key)
-        } else {
+            return new Node(key);
+        }
+        else if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
+            node.left = this.insertNode(node.left, key);
+        }
+        else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
+            node.right = this.insertNode(node.right, key);
+        }
+        else {
             // 已有当前key
-            return node
+            return node;
         }
         //验证树是否平衡
         const balanceState = this.getBalanceFactor(node);
@@ -97,7 +97,8 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
             if (this.compareFn(key, node.left.key) === Compare.LESS_THAN) {
                 // Left left case
                 node = this.rotationLL(node);
-            } else {
+            }
+            else {
                 // Left right case
                 return this.rotationLR(node);
             }
@@ -107,7 +108,8 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
             if (this.compareFn(key, node.right.key) === Compare.BIGGER_THAN) {
                 // Right right case
                 node = this.rotationRR(node);
-            } else {
+            }
+            else {
                 // Right left case
                 return this.rotationRL(node);
             }
@@ -118,7 +120,7 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
     * 获取平衡因子
     * @param node  Nodee<T>
     */
-    private getBalanceFactor(node: Node<T>) {
+    getBalanceFactor(node) {
         const heightDifference = this.getNodeHeight(node.left) - this.getNodeHeight(node.right);
         switch (heightDifference) {
             case -2:
@@ -133,28 +135,33 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
                 return BalanceFactor.BALANCED;
         }
     }
-    protected removeNode(node: Node<T>, key: T) {
+    removeNode(node, key) {
         if (node === undefined) {
-            return undefined
+            return undefined;
         }
         if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
             node.left = this.removeNode(node.left, key);
             return node;
-        } else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
+        }
+        else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
             node.right = this.removeNode(node.right, key);
             return node;
-        } else {
+        }
+        else {
             // 节点是要删除的节点
             if (node.left == undefined && node.right == undefined) {
                 // node是一个叶节点 没有子元素
                 node = undefined;
-            } else if (node.left == undefined && node.right != undefined) {
+            }
+            else if (node.left == undefined && node.right != undefined) {
                 // 只有右节点
                 node = node.right;
-            } else if (node.left != undefined && node.right == undefined) {
+            }
+            else if (node.left != undefined && node.right == undefined) {
                 // 只有左节点
                 node = node.left;
-            } else {
+            }
+            else {
                 // 节点有2个子节点，获取右子树的最小值 放在当前节点处
                 const inOrderSuccessor = this.minNode(node.right);
                 node.key = inOrderSuccessor.key;
@@ -167,14 +174,11 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
         }
         //验证树是否平衡
         const balanceState = this.getBalanceFactor(node);
-
         if (balanceState === BalanceFactor.UNBALANCED_LEFT) {
             // 左不平衡
             // Left left case
-            if (
-                this.getBalanceFactor(node.left) === BalanceFactor.BALANCED ||
-                this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
-            ) {
+            if (this.getBalanceFactor(node.left) === BalanceFactor.BALANCED ||
+                this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
                 return this.rotationLL(node);
             }
             // Left right case
@@ -186,10 +190,8 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
         if (balanceState === BalanceFactor.UNBALANCED_RIGHT) {
             // 右不平衡
             // Right right case
-            if (
-                this.getBalanceFactor(node.right) === BalanceFactor.BALANCED ||
-                this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
-            ) {
+            if (this.getBalanceFactor(node.right) === BalanceFactor.BALANCED ||
+                this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
                 return this.rotationRR(node);
             }
             // Right left case
@@ -198,16 +200,14 @@ export default class AVLTree<T> extends BinarySearchTree<T>  {
                 return this.rotationRL(node.right);
             }
         }
-
         return node;
     }
-
 }
-let a = new AVLTree()
-a.insert(5)
-a.inOederTraverse((v) => { console.log(v); })
-a.insert(2)
-a.insert(7)
-a.inOederTraverse((v) => { console.log(v); })
-a.remove(5)
-a.inOederTraverse((v) => { console.log(v); })
+let a = new AVLTree();
+a.insert(5);
+a.inOederTraverse((v) => { console.log(v); });
+a.insert(2);
+a.insert(7);
+a.inOederTraverse((v) => { console.log(v); });
+a.remove(5);
+a.inOederTraverse((v) => { console.log(v); });

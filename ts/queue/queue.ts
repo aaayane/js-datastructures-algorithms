@@ -4,14 +4,23 @@ export default class Queue<T> {
     constructor() {
         this.items = []
     }
+    /**
+     * 向队列尾部添加一个（或多个）新的项
+     * @param element 
+     */
     enqueue(element: any) {
         this.items.push(element)
     }
-
+    /**
+     * 移除队列中的第一（即排在队列最前面的）项，并返回删除的元素
+     */
     dequeue() {
         return this.items.shift()
     }
-
+    /**
+     * 返回队列中的第一个元素---最先被添加，也将是最先被移除的元素。队列不做任何变动
+     * 不移除元素，只返回元素信息 与Stack类的peek方法非常类似
+     */
     peek() {
         return this.items[0]
     }
