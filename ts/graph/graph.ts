@@ -1,5 +1,7 @@
 import Dictionary from "../dictionary/dictionary"
-
+/**
+ * 图
+ */
 export default class Graph {
     /** 
    * 顶点
@@ -59,11 +61,11 @@ export default class Graph {
         return s;
     }
 }
-let a = new Graph()
-a.addEdge(2, 5)
-a.addEdge(2, 8)
-a.addEdge(5, 8)
-a.addEdge(7, 8)
+// let a = new Graph(true)
+// a.addEdge(2, 5)
+// a.addEdge(2, 8)
+// a.addEdge(5, 8)
+// a.addEdge(7, 8)
 
-console.log(a.toString());
+// console.log(a.toString());
 

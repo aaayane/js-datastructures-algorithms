@@ -24,7 +24,9 @@ export default class Queue<T> {
     peek() {
         return this.items[0]
     }
-
+    /**
+     * 队列是否为空
+     */
     isEmpty() {
         return this.items.length === 0;
     }
@@ -39,16 +41,16 @@ export default class Queue<T> {
     }
 
 }
-const queue = new Queue();
-console.log(queue.isEmpty()); // outputs true
-queue.enqueue('John');
-queue.enqueue('Jack');
+// const queue = new Queue();
+// console.log(queue.isEmpty()); // outputs true
+// queue.enqueue('John');
+// queue.enqueue('Jack');
 
-queue.print()// John,Jack
-queue.enqueue('Camila');
-queue.print()// John,Jack,Camila
-console.log(queue.size()); // outputs 3
-console.log(queue.isEmpty()); // outputs false
-queue.dequeue(); // remove John
-queue.dequeue(); // remove Jack
-queue.print()// Camilas
+// queue.print()// John,Jack
+// queue.enqueue('Camila');
+// queue.print()// John,Jack,Camila
+// console.log(queue.size()); // outputs 3
+// console.log(queue.isEmpty()); // outputs false
+// queue.dequeue(); // remove John
+// queue.dequeue(); // remove Jack
+// queue.print()// Camilas
