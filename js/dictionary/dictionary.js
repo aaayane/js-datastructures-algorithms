@@ -1,5 +1,8 @@
 import { defaultToString } from '../util';
 import { ValuePair } from '../models/value-pair';
+/**
+ * 字典
+ */
 export default class Dictionary {
     constructor(toStrFn = defaultToString) {
         this.toStrFn = toStrFn;

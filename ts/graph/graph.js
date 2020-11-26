@@ -1,10 +1,13 @@
-import Dictionary from "../dictionary/dictionary";
-export default class Graph {
+"use strict";
+exports.__esModule = true;
+var dictionary_1 = require("../dictionary/dictionary");
+var Graph = /** @class */ (function () {
     /**
      *
      * @param isDirected 是否为有向图
      */
-    constructor(isDirected = false) {
+    function Graph(isDirected) {
+        if (isDirected === void 0) { isDirected = false; }
         this.isDirected = isDirected;
         /**
        * 顶点
@@ -13,22 +16,22 @@ export default class Graph {
         /**
          * 边的集合
          */
-        this.adjList = new Dictionary;
+        this.adjList = new dictionary_1["default"];
     }
     /**
      * 添加顶点
      * @param v
      */
-    addVertex(v) {
+    Graph.prototype.addVertex = function (v) {
         this.vertices.push(v);
         this.adjList.set(v, []);
-    }
+    };
     /**
      * 链接两个顶点
      * @param a
      * @param b
      */
-    addEdge(a, b) {
+    Graph.prototype.addEdge = function (a, b) {
         // this.adjList.set(a)
         if (!this.adjList.hasKey(a)) {
             this.addVertex(a);
@@ -40,27 +43,29 @@ export default class Graph {
         if (!this.isDirected) {
             this.adjList.get(b).push(a);
         }
-    }
-    getVertices() {
+    };
+    Graph.prototype.getVertices = function () {
         return this.vertices;
-    }
-    getAdjList() {
+    };
+    Graph.prototype.getAdjList = function () {
         return this.adjList;
-    }
-    toString() {
-        let s = '';
-        for (let i = 0; i < this.vertices.length; i++) {
+    };
+    Graph.prototype.toString = function () {
+        var s = '';
+        for (var i = 0; i < this.vertices.length; i++) {
             s += this.vertices[i] + ' -> ';
-            const neighbors = this.adjList.get(this.vertices[i]);
-            for (let j = 0; j < neighbors.length; j++) {
+            var neighbors = this.adjList.get(this.vertices[i]);
+            for (var j = 0; j < neighbors.length; j++) {
                 s += neighbors[j] + ' ';
             }
             s += '\n';
         }
         return s;
-    }
-}
-let a = new Graph();
+    };
+    return Graph;
+}());
+exports["default"] = Graph;
+var a = new Graph();
 a.addEdge(2, 5);
 a.addEdge(2, 8);
 a.addEdge(5, 8);

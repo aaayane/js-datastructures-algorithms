@@ -1,6 +1,8 @@
 import { defaultToString } from '../util';
 import { ValuePair } from '../models/value-pair';
-
+/**
+ * 字典
+ */
 export default class Dictionary<K, V> {
   private table: { [key: string]: ValuePair<K, V> };
 
