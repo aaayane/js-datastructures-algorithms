@@ -20,7 +20,7 @@ export enum Compare {
     BIGGER_THAN = 1,
     EQUALS = 0
 }
-export function defaultCompare<T>(a: T, b: T): number {
+export function defaultCompare<T>(a: T, b: T): Compare {
     if (a === b) {
         return Compare.EQUALS;
     }
