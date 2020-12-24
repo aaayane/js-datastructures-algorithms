@@ -1,6 +1,6 @@
 import { ICompareFunction, defaultCompare, Compare } from './../util';
 
-
+//堆排序
 export default function heapSort(array: any[], compareFn = defaultCompare) {
     let heapSize = array.length;
     buildMaxHeap(array, compareFn)
@@ -55,6 +55,6 @@ function heapify(array: any[], index: number, heapSize: number, compareFn: IComp
 
 }
 
-let arr = [3, 6, 3, 8, 1, 6, 9, 23, 65, 1, -1]
+// let arr = [3, 6, 3, 8, 1, 6, 9, 23, 65, 1, -1]
 
-console.log(heapSort(arr));
+// console.log(heapSort(arr));
