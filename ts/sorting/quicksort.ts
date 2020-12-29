@@ -36,6 +36,7 @@ function partition<T>(array: T[], left: number, right: number, compareFn: ICompa
             right--
         }
     }
+    return left
 }
 
 let arr = [3, 6, 3, 8, 1, 6, 9, 23, 65, 1, -1]

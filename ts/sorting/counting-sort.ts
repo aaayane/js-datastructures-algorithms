@@ -3,6 +3,6 @@
  * 计数排序
  * @param array 
  */
-export function countingSort(array: number[]) {
+// export function countingSort(array: number[]) {
 
-}
+// }
